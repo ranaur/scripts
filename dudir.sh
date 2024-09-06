@@ -1,4 +1,5 @@
 #!/bin/sh
+# Gets the sive os each directory from current directory or passed parameter
 DU_OPTS="--apparent-size -m"
 if [ $# = 0 ] ; then
         for t in * ; do

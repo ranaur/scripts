@@ -22,4 +22,17 @@ for scr in *.sh ; do
 done
 popd > /dev/null
 
+PUBLIC_TEMPLATE=$HOME/script/template.tar.gz
+if [ -f "$PUBLIC_TEMPLATE" ] ; then
+	pushd $HOME > /dev/null
+	tar zxf "$PUBLIC_TEMPLATE"
+	popd
+fi
+PRIVATE_TEMPLATE=$HOME/config/template.tar.gz.gpg
+if [ -f "$PRIVATE_TEMPLATE" ] ; then
+	pushd $HOME > /dev/null
+	gpg -d "$PRIVATE_TEMPLATE" | tar zxf -
+	popd
+fi
+
 exit 0

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+SCRIPT_FILE=`realpath "$0"`
+SCRIPT_DIR=`dirname "$SCRIPT_FILE"`
+
+INSTALL_DIR="$HOME/bin"
+
+if [ ! -d "$INSTALL_DIR" ] ; then
+	mkdir -p "$INSTALL_DIR"
+fi
+
+#echo SCRIPT_FILE=$SCRIPT_FILE
+#echo SCRIPT_DIR=$SCRIPT_DIR
+pushd "$SCRIPT_DIR" > /dev/null
+for scr in *.sh ; do
+	if [ -h "${INSTALL_DIR}/${scr%.*}" ] ; then
+		ln -sf "${SCRIPT_DIR}/${scr}" "${INSTALL_DIR}/${scr%.*}"
+	fi
+	if [ ! -e "${INSTALL_DIR}/${scr%.*}" ] ; then
+		ln -s "${SCRIPT_DIR}/${scr}" "${INSTALL_DIR}/${scr%.*}"
+	fi
+done
+popd > /dev/null
+
+exit 0
